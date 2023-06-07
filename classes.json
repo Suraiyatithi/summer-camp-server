@@ -1,0 +1,63 @@
+ [
+    {
+      "className": "Party Makeover",
+      "classImg": "https://i.ibb.co/c3vWNCq/download.jpg",
+      "instructorName": "John Smith",
+      "instructorImg": "https://i.ibb.co/wr3k5Gp/images.jpg",
+      "instructorEmail": "john@example.com",
+      "availableSeat": 15,
+      "enrolledStudent": 10,
+      "price": 25
+    },
+    {
+      "className": "Bridal Makeover",
+      "classImg": "https://i.ibb.co/kDCyfgQ/images.jpg",
+      "instructorName": "Sarah Johnson",
+      "instructorImg": "https://i.ibb.co/ZfZhWrz/images.jpg",
+      "instructorEmail": "sarah@example.com",
+      "availableSeat": 10,
+      "enrolledStudent": 8,
+      "price": 30
+    },
+    {
+      "className": "Glow Facial",
+      "classImg": "https://i.ibb.co/KzG4kVN/download.jpg",
+      "instructorName": "Maria Rodriguez",
+      "instructorImg": "https://i.ibb.co/WKBwH64/images.jpg",
+      "instructorEmail": "maria@example.com",
+      "availableSeat": 20,
+      "enrolledStudent": 12,
+      "price": 15
+    },
+    {
+      "className": "Hair Style",
+      "classImg": "https://i.ibb.co/1XqcLt9/images.jpg",
+      "instructorName": "Michael Thompson",
+      "instructorImg": "https://i.ibb.co/LQGk04Z/images.jpg",
+      "instructorEmail": "michael@example.com",
+      "availableSeat": 8,
+      "enrolledStudent": 6,
+      "price": 35
+    },
+    {
+      "className": "Glossy makeover",
+      "classImg": "https://i.ibb.co/JQtJwHK/images.jpg",
+      "instructorName": "Emily Davis",
+      "instructorImg": "https://i.ibb.co/ZV7vFVh/images.jpg",
+      "instructorEmail": "emily@example.com",
+      "availableSeat": 12,
+      "enrolledStudent": 10,
+      "price": 40
+    },
+    {
+      "className": "Hair Spa",
+      "classImg": "https://i.ibb.co/cggRqYv/download.jpg",
+      "instructorName": "Daniel Anderson",
+      "instructorImg": "https://i.ibb.co/QFLC8nZ/images.jpg",
+      "instructorEmail": "daniel@example.com",
+      "availableSeat": 6,
+      "enrolledStudent": 4,
+      "price": 50
+    }
+  ]
+  
