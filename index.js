@@ -58,13 +58,32 @@ async function run() {
       res.send({ token })
     })
 
+    const verifyAdmin = async (req, res, next) => {
+      const email = req.decoded.email;
+      const query = { email: email }
+      const user = await usersCollection.findOne(query);
+      if (user?.role !== 'admin') {
+        return res.status(403).send({ error: true, message: 'forbidden message' });
+      }
+      next();
+    }
 
+
+    const verifyInstructor = async (req, res, next) => {
+      const email = req.decoded.email;
+      const query = { email: email }
+      const user = await usersCollection.findOne(query);
+      if (user?.role !== 'instructor') {
+        return res.status(403).send({ error: true, message: 'forbidden message' });
+      }
+      next();
+    }
 
     app.get('/classes', async (req, res) => {
         const result = await classCollection.find().toArray();
         res.send(result);
       })
-      app.get('/users',  async (req, res) => {
+      app.get('/users',verifyJWT,verifyAdmin,verifyInstructor, async (req, res) => {
         const result = await usersCollection.find().toArray();
         res.send(result);
       });
@@ -80,12 +99,37 @@ async function run() {
         const result = await usersCollection.insertOne(user);
         res.send(result);
       });
+
+      app.get('/users/admin/:email', verifyJWT, async (req, res) => {
+        const email = req.params.email;
+  
+        if (req.decoded.email !== email) {
+          res.send({ admin: false })
+        }
+  
+        const query = { email: email }
+        const user = await usersCollection.findOne(query);
+        const result = { admin: user?.role === 'admin' }
+        res.send(result);
+      })
+      app.get('/users/instructor/:email', verifyJWT, async (req, res) => {
+        const email = req.params.email;
+  
+        if (req.decoded.email !== email) {
+          res.send({ instructor: false })
+        }
+  
+        const query = { email: email }
+        const user = await usersCollection.findOne(query);
+        const result = { instructor: user?.role === 'instructor' }
+        res.send(result);
+      })
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error
-    // await client.close();
+    
   }
 }
 run().catch(console.dir);
