@@ -32,7 +32,7 @@ const token=authorization.split(' ')[1];
 ;
 
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.2jwpece.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -91,7 +91,7 @@ async function run() {
         res.send(result);
       })
     
-      app.get('/users', verifyJWT,verifyAdmin,verifyInstructor ,async (req, res) => {
+      app.get('/users', verifyJWT,async (req, res) => {
         const result = await usersCollection.find().toArray();
         res.send(result);
       });
@@ -111,8 +111,36 @@ async function run() {
       });
 
 
-
-     
+         
+      app.patch('/users/admin/:id', async (req, res) => {
+        const id = req.params.id;
+        console.log(id);
+        const filter = { _id: new ObjectId(id) };
+        const updateDoc = {
+          $set: {
+            role: 'admin'
+          },
+        };
+  
+        const result = await usersCollection.updateOne(filter, updateDoc);
+        res.send(result);
+  
+      }) 
+  
+      app.patch('/users/instructor/:id', async (req, res) => {
+        const id = req.params.id;
+        console.log(id);
+        const filter = { _id: new ObjectId(id) };
+        const updateDoc = {
+          $set: {
+            role: 'instructor'
+          },
+        };
+  
+        const result = await usersCollection.updateOne(filter, updateDoc);
+        res.send(result);
+  
+      })
       app.get('/users/admin/:email', verifyJWT, async (req, res) => {
         const email = req.params.email;
   
@@ -140,7 +168,7 @@ async function run() {
       });
    
    
-  
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
