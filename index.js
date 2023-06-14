@@ -135,7 +135,24 @@ app.get('/classes',async(req,res)=>{
         res.send(result);
   
       })
+      // app.patch('/classes/seat/:id', async (req, res) => {
+      //   const id = req.params.id;
+      //   console.log(id);
+      //   const filter = { _id: new ObjectId(id) };
+        
+      //   const existingDoc = await classCollection.findOne(filter);
+        
+      //   const updatedAvailableSeat = existingDoc.availableSeat - 1;
+        
+      //   const updateDoc = {
+      //     $set: {
+      //       availableSeat: updatedAvailableSeat
+      //     },
+      //   };
       
+      //   const result = await classCollection.updateOne(filter, updateDoc);
+      //   res.send(result);
+      // });
 
       app.patch('/classes/feedback/:id', async (req, res) => {
         const id = req.params.id;
@@ -151,6 +168,7 @@ app.get('/classes',async(req,res)=>{
         const result = await classCollection.updateOne(filter, updateDoc);
         res.send(result);
       });
+      
       app.get('/users', verifyJWT,async (req, res) => {
         const result = await usersCollection.find().toArray();
         res.send(result);
