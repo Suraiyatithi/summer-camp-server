@@ -92,6 +92,18 @@ async function run() {
         res.send(result);
       })
     
+app.get('/classes',async(req,res)=>{
+  const cursur=classCollection.find();
+  const result=await cursur.toArray();
+  res.send(result);
+})
+
+      app.post('/classes',async(req,res)=>{
+        const adding=req.body;
+        console.log(adding);
+        const result=await classCollection.insertOne(adding);
+        res.send(result);
+      })
       app.get('/users', verifyJWT,async (req, res) => {
         const result = await usersCollection.find().toArray();
         res.send(result);
@@ -202,7 +214,7 @@ async function run() {
   })
  
 
-  app.get('/carts/:id',verifyJWT, async(req, res) => {
+  app.get('/carts/:id', async(req, res) => {
     const id = req.params.id;
     const query = {_id: new ObjectId(id)}
     const result = await cartsCollection.findOne(query);
