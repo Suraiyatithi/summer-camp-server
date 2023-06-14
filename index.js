@@ -134,6 +134,21 @@ app.get('/classes',async(req,res)=>{
   
       })
       
+
+      app.patch('/classes/feedback/:id', async (req, res) => {
+        const id = req.params.id;
+        const { feedback } = req.body;
+      
+        const filter = { _id: new ObjectId(id) };
+        const updateDoc = {
+          $set: {
+            feedback: feedback
+          },
+        };
+      
+        const result = await classCollection.updateOne(filter, updateDoc);
+        res.send(result);
+      });
       app.get('/users', verifyJWT,async (req, res) => {
         const result = await usersCollection.find().toArray();
         res.send(result);
