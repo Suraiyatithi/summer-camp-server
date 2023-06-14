@@ -104,6 +104,36 @@ app.get('/classes',async(req,res)=>{
         const result=await classCollection.insertOne(adding);
         res.send(result);
       })
+
+      app.patch('/classes/approved/:id', async (req, res) => {
+        const id = req.params.id;
+        console.log(id);
+        const filter = { _id: new ObjectId(id) };
+        const updateDoc = {
+          $set: {
+            status: 'approved'
+          },
+        };
+  
+        const result = await classCollection.updateOne(filter, updateDoc);
+        res.send(result);
+  
+      })
+      app.patch('/classes/deny/:id', async (req, res) => {
+        const id = req.params.id;
+        console.log(id);
+        const filter = { _id: new ObjectId(id) };
+        const updateDoc = {
+          $set: {
+            status: 'deny'
+          },
+        };
+  
+        const result = await classCollection.updateOne(filter, updateDoc);
+        res.send(result);
+  
+      })
+      
       app.get('/users', verifyJWT,async (req, res) => {
         const result = await usersCollection.find().toArray();
         res.send(result);
